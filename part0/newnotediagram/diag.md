@@ -8,6 +8,12 @@
     server-->>browser: 302
     deactivate server
 
+    Note right of browser: 302 is a URL redirect, the server asks the browser to do a new HTTP GET request to /notes.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: the HTML document
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: the css file
