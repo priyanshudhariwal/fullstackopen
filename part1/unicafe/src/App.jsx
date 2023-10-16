@@ -19,19 +19,38 @@ const App = () => {
   const goodFeedback = () => {
     const newGood = good+1
     setGood(newGood)
-    setTotal(newGood + neutral + bad)
+    const newTotal = newGood + neutral + bad
+    setTotal(newTotal)
+    // console.log('total = ', newTotal)
+    // console.log('good = ', newGood)
+    // console.log('neutral = ', neutral)
+    // console.log('bad = ', bad)
+    const newAverage = ((newGood*1) + (neutral*0) + (bad*-1))/newTotal
+    setAverage(newAverage)
+    const newPositive = ((newGood)/newTotal)*100
+    setPositive(newPositive)
   }
 
   const neutralFeedback = () => {
     const newNeutral = neutral+1
     setNeutral(newNeutral)
-    setTotal(good + newNeutral + bad)
+    const newTotal = good + newNeutral + bad
+    setTotal(newTotal)
+    const newAverage = ((good*1) + (newNeutral*0) + (bad*-1))/newTotal
+    setAverage(newAverage)
+    const newPositive = ((good)/newTotal)*100
+    setPositive(newPositive)
   }
 
   const badFeedback = () => {
     const newBad = bad+1
     setBad(newBad)
-    setTotal(good + neutral + newBad)
+    const newTotal = good + neutral + newBad
+    setTotal(newTotal)
+    const newAverage = ((good*1) + (neutral*0) + (newBad*-1))/newTotal
+    setAverage(newAverage)
+    const newPositive = ((good)/newTotal)*100
+    setPositive(newPositive)
   }
 
 
@@ -48,7 +67,9 @@ const App = () => {
         good {good}<br/>
         neutral {neutral}<br/>
         bad {bad} <br/>
-        all {total}
+        all {total} <br/>
+        average {average} <br/>
+        positive {positive}% <br/>
       </div>
     </div>
   )
