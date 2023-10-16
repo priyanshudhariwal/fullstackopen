@@ -7,6 +7,28 @@ const Button = (props) => {
 }
 
 
+const Statistics = ({ good, neutral, bad, total, average, positive }) => {
+  if (total == 0) {
+    return(
+      <div>
+        <h1>statistics</h1>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+  return(
+    <div>
+      <h1>statistics</h1>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>all {total}</p>
+      <p>average {average}</p>
+      <p>positive {positive} %</p>
+    </div>
+  )
+}
+
 const App = () => {
   
   const [good, setGood] = useState(0)
@@ -21,10 +43,6 @@ const App = () => {
     setGood(newGood)
     const newTotal = newGood + neutral + bad
     setTotal(newTotal)
-    // console.log('total = ', newTotal)
-    // console.log('good = ', newGood)
-    // console.log('neutral = ', neutral)
-    // console.log('bad = ', bad)
     const newAverage = ((newGood*1) + (neutral*0) + (bad*-1))/newTotal
     setAverage(newAverage)
     const newPositive = ((newGood)/newTotal)*100
@@ -62,15 +80,14 @@ const App = () => {
         <Button handleClick={neutralFeedback} text='neutral' />
         <Button handleClick={badFeedback} text='bad' />
       </div>
-      <div>
-        <h1>statistics</h1>
-        good {good}<br/>
-        neutral {neutral}<br/>
-        bad {bad} <br/>
-        all {total} <br/>
-        average {average} <br/>
-        positive {positive}% <br/>
-      </div>
+     <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      total={total}
+      average={average}
+      positive={positive}
+    />
     </div>
   )
 }
