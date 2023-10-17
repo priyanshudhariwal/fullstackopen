@@ -29,16 +29,20 @@ const App = () => {
   const mostVotes = () => {
     const votesCopy = [...votes]
     let max = votesCopy[0]
+    let maxi = 0
     for(let i = 0; i<votesCopy.length; i++){
       if(votesCopy[i] > max)
         max = votesCopy[i]
     }
-    console.log(max)
-    return max;
+    for(let i = 0; i<votesCopy.length; i++){
+      if(votesCopy[i] === max){
+        maxi = i
+      }
+    }
+    return maxi;
   }
 
   const popular = mostVotes()
-  console.log(popular)
 
   return (
     <div>
