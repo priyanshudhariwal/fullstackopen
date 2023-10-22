@@ -2,8 +2,12 @@ const Header = ({ courseTitle }) => {
   return <h1>{courseTitle}</h1>
 }
 
-const Total = (props) => {
-  return <p>Number of exercises {props.sumOfExercises}</p>
+const Total = ({ noEx }) => {
+  let sum = 0;
+  noEx.forEach((ex) => {
+    sum = sum+ex
+  })
+  return <p><b>Number of exercises {sum}</b></p>
 }
 
 const Part = ({ cont, ex }) => {
@@ -29,6 +33,7 @@ const Course = ({ course }) => {
     <>
       <Header courseTitle={course.name} />
       <Content contInfo={course.parts}/>
+      <Total noEx={course.parts.map(part => part.exercises)} />
     </>
   )
 }
@@ -52,6 +57,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
