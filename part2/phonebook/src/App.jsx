@@ -8,11 +8,26 @@ const App = () => {
 
   const addName = (e) => {
     e.preventDefault()
-    const newPerson = {
-      name: newName,
+
+    let exists = false
+
+    persons.forEach(person => {
+      if(person.name === newName )
+        exists = true;
+    })
+
+    if(exists){
+      alert(`${newName} already exists in the phonebook`)
     }
-    setPersons(persons.concat(newPerson))
-    setNewName('')
+
+    else {
+      e.preventDefault()
+      const newPerson = {
+        name: newName
+      }
+      setPersons(persons.concat(newPerson))
+      setNewName('')
+    }
   }
 
   const handleChange = (evt) => {
