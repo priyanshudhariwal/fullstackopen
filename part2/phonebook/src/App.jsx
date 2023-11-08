@@ -63,6 +63,14 @@ const App = () => {
     setFilter(e.target.value)
   }
 
+  const removePerson = (id) => {
+    const del = persons.find((person) => person.id === id)
+    if(window.confirm(`Do you wish to delete ${del.name}?`)){
+      personService.remove(id)
+      setPersons(persons.filter(person => person.id !== id))
+    }
+  }
+
   const personsToShow = (filter === null) ? persons : persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()));
 
   return (
@@ -76,7 +84,7 @@ const App = () => {
         nameValue={newName} 
         numValue={newNumber} 
       />
-      <DisplayPersons personsToShow={personsToShow} />
+      <DisplayPersons personsToShow={personsToShow} deletePerson={removePerson} />
     </div>
   )
 }
