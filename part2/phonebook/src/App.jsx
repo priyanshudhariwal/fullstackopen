@@ -26,12 +26,28 @@ const App = () => {
     let exists = false
 
     persons.forEach(person => {
-      if(person.name === newName )
+      if(person.name.toLowerCase() === newName.toLowerCase())
         exists = true;
     })
 
     if(exists){
-      alert(`${newName} already exists in the phonebook`)
+      if(window.confirm(`${newName} already exists in the phonebook, do you wish to update the number?`)){
+
+        const upID = persons.find((person) => person.name.toLowerCase() === newName.toLowerCase())
+
+        const newPerson = {
+          name: newName,
+          number: newNumber,
+          id: persons.length + 1
+        }
+        
+        personService
+          .updatePerson(upID.id, newPerson)
+          .then((updatedPerson) => {
+            setPersons(persons.map(person => person.id !== upID.id ? person : updatedPerson))
+          })
+
+      }
     }
 
     else {
