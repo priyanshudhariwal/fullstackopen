@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [notif, setNotif] = useState(null)
+  const [erro, setErro] = useState(false)
 
   const hook = () => {
     personService
@@ -52,7 +53,15 @@ const App = () => {
               setNotif(null)
             }, 5000)
           })
-
+          .catch((err) => {
+            setErro(true)
+            setNotif(`${upID.name} has already been removed from the server`)
+            setTimeout(() => {
+              setErro(false)
+              setNotif(null)
+              console.log(erro)
+            }, 5000)
+          })
       }
     }
 
@@ -102,7 +111,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notif} />
+      <Notification message={notif} sit={erro} />
       <Filter filter={filter} handleFilter={handleFilter}/>
       <PersonForm 
         handleSubmit={addName} 
