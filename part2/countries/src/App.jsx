@@ -10,10 +10,8 @@ function App() {
     axios
       .get('https://studies.cs.helsinki.fi/restcountries/api/all')
       .then((response) => {
-        console.log(response.data)
-        console.log(response.data[0].name.common)
         response.data.forEach((dat) => {
-          countryNames.concat(dat.name.common)
+          countryNames.push(dat.name.common)
         })
       })
       console.log(countryNames)
