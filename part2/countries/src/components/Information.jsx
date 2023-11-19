@@ -5,7 +5,7 @@ const Information = ({ filteredList, numberOfResults }) => {
             <p>Too many matches, specify another filter</p>
         )
     }
-    else if(numberOfResults <= 10 && numberOfResults > 1){
+    else if(numberOfResults <= 10 && numberOfResults >= 1){
         return(
             <div>
                 <ul>
