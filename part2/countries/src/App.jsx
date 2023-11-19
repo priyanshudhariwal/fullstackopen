@@ -4,8 +4,6 @@ import Information from './components/Information'
 
 function App() {
   
-  let filteredCountries = []
-  const countryNames = []
   const [countries, setCountries] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [numberOfCountries, setNumberOfCountries] = useState(0)
@@ -15,9 +13,7 @@ function App() {
     console.log('fetching')
     await axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
       .then((response) => {
-        response.data.forEach((dat) => {
-          countryNames.push(dat.name.common)
-        })
+        const countryNames = response.data.map((dat) => dat.name.common)
         setCountries(countryNames)
       })
   }
@@ -35,10 +31,14 @@ function App() {
         setNumberOfCountries(num)
       }
     })
-    filteredCountries = countries.filter((country) => country.toLowerCase().includes(searchTerm.toLowerCase()))
+    const filteredCountries = countries.filter((country) => country.toLowerCase().includes(searchTerm.toLowerCase()))
     setFilteredItems(filteredCountries)
   }
 
+  const fetchCountryData = (country) => {
+    const request = axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
+    return request.then((response) => response.data)
+  }
 
   return (
     <div>
@@ -46,6 +46,7 @@ function App() {
       <Information 
         filteredList={filteredItems}
         numberOfResults={numberOfCountries}
+        basicData={fetchCountryData}
       />
     </div>
   )

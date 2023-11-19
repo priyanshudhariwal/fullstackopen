@@ -1,4 +1,6 @@
-const Information = ({ filteredList, numberOfResults }) => {
+import Country from "./Country"
+
+const Information = ({ filteredList, numberOfResults, basicData }) => {
 
     const listStyles = {
         listStyleType: 'none'
@@ -16,6 +18,16 @@ const Information = ({ filteredList, numberOfResults }) => {
                 <ul style={listStyles}>
                     {filteredList.map((item) => <li>{item} </li>)}
                 </ul>
+            </div>
+        )
+    }
+    else if(numberOfResults === 1){
+        return(
+            <div>
+                <Country
+                    info={basicData}
+                    name={filteredList[0]}
+                />
             </div>
         )
     }

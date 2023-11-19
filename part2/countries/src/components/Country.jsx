@@ -1,8 +1,8 @@
-const Country = () => {
-
+const Country = ({ info,name }) => {
+    const data = info(name)
     return (
         <>
-            
+
         </>
     )
 }
