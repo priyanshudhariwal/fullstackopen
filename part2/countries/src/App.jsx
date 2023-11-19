@@ -27,9 +27,10 @@ function App() {
 
   const handleFilter = (e) => {
     let num = 0;
-    setSearchTerm(e.target.value)
+    let inputTerm = e.target.value
+    setSearchTerm(inputTerm)
     countries.forEach((name) => {
-      if(name.toLowerCase().includes(searchTerm.toLowerCase())){
+      if(name.toLowerCase().includes(inputTerm.toLowerCase())){
         num++;
         setNumberOfCountries(num)
       }
