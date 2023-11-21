@@ -8,14 +8,13 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [numberOfCountries, setNumberOfCountries] = useState(0)
   const [filteredItems, setFilteredItems] = useState([])
+  const [countryData, setCountryData] = useState({})
 
   const allCountries = async () => {
     console.log('fetching')
-    await axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
-      .then((response) => {
-        const countryNames = response.data.map((dat) => dat.name.common)
-        setCountries(countryNames)
-      })
+    const request = await axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
+    const countryNames = request.data.map((dat) => dat.name.common)
+    setCountries(countryNames)
   }
 
 
@@ -35,9 +34,9 @@ function App() {
     setFilteredItems(filteredCountries)
   }
 
-  const fetchCountryData = (country) => {
-    const request = axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
-    return request.then((response) => response.data)
+  const fetchCountryData = async (country) => {
+    const request = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
+    setCountryData(request.data)
   }
 
   return (
@@ -46,7 +45,8 @@ function App() {
       <Information 
         filteredList={filteredItems}
         numberOfResults={numberOfCountries}
-        basicData={fetchCountryData}
+        basicData={countryData}
+        basicDataFunc={fetchCountryData}
       />
     </div>
   )

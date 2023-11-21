@@ -1,12 +1,11 @@
 import Country from "./Country"
 
-const Information = ({ filteredList, numberOfResults, basicData }) => {
+const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc }) => {
 
     const listStyles = {
         listStyleType: 'none'
     }
 
-    console.log(filteredList)
     if(numberOfResults > 10){
         return(
             <p>Too many matches, specify another filter</p>
@@ -25,6 +24,7 @@ const Information = ({ filteredList, numberOfResults, basicData }) => {
         return(
             <div>
                 <Country
+                    infoFunc={basicDataFunc}
                     info={basicData}
                     name={filteredList[0]}
                 />
