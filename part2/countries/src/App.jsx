@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Information from './components/Information'
+import Country from './components/Country'
 
 function App() {
   
@@ -45,8 +46,11 @@ function App() {
       <Information 
         filteredList={filteredItems}
         numberOfResults={numberOfCountries}
-        basicData={countryData}
         basicDataFunc={fetchCountryData}
+        basicData={countryData}
+      />
+      <Country
+        info={countryData}
       />
     </div>
   )

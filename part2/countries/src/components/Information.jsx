@@ -21,14 +21,9 @@ const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc }
         )
     }
     else if(numberOfResults === 1){
+        basicDataFunc(filteredList[0])
         return(
-            <div>
-                <Country
-                    infoFunc={basicDataFunc}
-                    info={basicData}
-                    name={filteredList[0]}
-                />
-            </div>
+            null
         )
     }
     return (
