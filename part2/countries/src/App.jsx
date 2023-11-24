@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Information from './components/Information'
-import Country from './components/Country'
 
 function App() {
   
@@ -10,6 +9,8 @@ function App() {
   const [numberOfCountries, setNumberOfCountries] = useState(0)
   const [filteredItems, setFilteredItems] = useState([])
   const [countryData, setCountryData] = useState({})
+  const [display, setDisplay] = useState(false)
+  const [view, setViewData] = useState({})
 
   const allCountries = async () => {
     console.log('fetching')
@@ -31,13 +32,33 @@ function App() {
         setNumberOfCountries(num)
       }
     })
-    const filteredCountries = countries.filter((country) => country.toLowerCase().includes(searchTerm.toLowerCase()))
+    const filteredCountries = countries.filter((country) => country.toLowerCase().includes(inputTerm.toLowerCase()))
     setFilteredItems(filteredCountries)
   }
 
   const fetchCountryData = async (country) => {
-    const request = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
-    setCountryData(request.data)
+    try{
+        const request = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
+        setCountryData(request.data)
+    }
+    catch(err){
+      console.log(`error ${err}`)
+    }
+  }
+
+  const fetchViewData = async (country) => {
+    const response = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
+    console.log('fetching complete')
+    setViewData(response.data)
+    console.log(view)
+  }
+
+  const handleViewChange = (country) => {
+    setDisplay(!display)
+    if(display){
+      console.log('fetching view')
+      fetchCountryData(country)
+    }
   }
 
   return (
@@ -48,9 +69,9 @@ function App() {
         numberOfResults={numberOfCountries}
         basicDataFunc={fetchCountryData}
         basicData={countryData}
-      />
-      <Country
-        info={countryData}
+        displayView={display}
+        handleView={handleViewChange}
+        viewData={view}
       />
     </div>
   )

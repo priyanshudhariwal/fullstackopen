@@ -2,6 +2,7 @@ const Country = ({ info }) => {
     if(Object.keys(info).length === 0){
         return null
     }
+    const languages = Object.keys(info.languages)
     return (
         <>
             <h1>{info.name.common}</h1>
@@ -11,7 +12,7 @@ const Country = ({ info }) => {
             <br/>
             <p><strong>languages:</strong></p>
             <ul>
-                <li></li>
+                {languages.map((lang) => <li>{info.languages[lang]}</li>)}
             </ul>
             <img src={info.flags.png} />
         </>

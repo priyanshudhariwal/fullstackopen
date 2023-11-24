@@ -1,7 +1,8 @@
 import Country from "./Country"
 
-const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc }) => {
+const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc, displayView, handleView }) => {
 
+    const label = displayView ? 'hide' : 'show'
     const listStyles = {
         listStyleType: 'none'
     }
@@ -15,7 +16,13 @@ const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc }
         return(
             <div>
                 <ul style={listStyles}>
-                    {filteredList.map((item) => <li>{item} </li>)}
+                    {filteredList.map((item) => {
+                        return (
+                            <li>
+                                {item} <button onClick={() => handleView(item)}>{label}</button>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         )
@@ -23,12 +30,14 @@ const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc }
     else if(numberOfResults === 1){
         basicDataFunc(filteredList[0])
         return(
-            null
+            <Country
+                info={basicData}
+            />
         )
     }
     return (
         <div>
-
+            No matches found
         </div>
     )
 }
