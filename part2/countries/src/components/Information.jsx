@@ -27,7 +27,7 @@ const Information = ({ filteredList, numberOfResults, basicData, basicDataFunc, 
             </div>
         )
     }
-    else if(numberOfResults === 1){
+    else if(numberOfResults === 1 && filteredList.length !== 0){
         basicDataFunc(filteredList[0])
         return(
             <Country
